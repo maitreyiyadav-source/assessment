@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telecollections Agent Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f0f4ff;color:#111827;font-size:15px;line-height:1.6}
+.hero{background:#0c1f3f;padding:52px 20px 44px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(26,86,219,.35),transparent)}
+.hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px}
+.hero-inner{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.hero-tag{display:inline-block;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.35);color:#fcd34d;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px}
+.hero h1{font-size:28px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:10px}
+.hero p{color:rgba(255,255,255,.55);font-size:14px;margin-bottom:22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.65);font-size:11px;padding:4px 12px;border-radius:20px}
+.pbar{background:#fff;border-bottom:1px solid #e5e7eb;padding:10px 20px;position:sticky;top:0;z-index:99}
+.pbar-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.ptrack{flex:1;height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,#1a56db,#f59e0b);border-radius:3px;transition:width .3s;width:0%}
+.ptxt{font-size:12px;color:#6b7280;font-weight:500;white-space:nowrap}
+.wrap{max-width:680px;margin:0 auto;padding:28px 16px 80px}
+.card{background:#fff;border:1px solid #dde4f5;border-radius:16px;margin-bottom:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-head{background:linear-gradient(95deg,#0c1f3f,#152f5e);padding:16px 22px;display:flex;align-items:center;gap:12px}
+.card-num{width:28px;height:28px;border-radius:50%;background:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0c1f3f;flex-shrink:0}
+.card-title{color:#fff;font-size:15px;font-weight:600}
+.card-sub{color:rgba(255,255,255,.45);font-size:12px;margin-top:2px}
+.card-body{padding:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.span2{grid-column:1/-1}
+.field label{font-size:11px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.5px}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid #dde4f5;border-radius:10px;padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:14px;color:#111827;background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#1a56db;box-shadow:0 0 0 3px rgba(26,86,219,.1)}
+.field textarea{resize:vertical;min-height:90px}
+.lk-scroll{overflow-x:auto}
+.lk{width:100%;border-collapse:collapse;min-width:440px}
+.lk thead th{font-size:10px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.4px;padding:8px 6px;text-align:center;border-bottom:2px solid #f0f4ff}
+.lk thead th:first-child{text-align:left;padding-left:0;min-width:260px}
+.lk tbody td{padding:10px 6px;text-align:center;border-bottom:1px solid #f0f4ff}
+.lk tbody td:first-child{text-align:left;padding-left:0;font-size:13px;color:#374151}
+.lk tbody tr:last-child td{border-bottom:none}
+.lk tbody tr:hover td{background:#f8faff}
+.lk input[type=radio]{accent-color:#1a56db;width:18px;height:18px;cursor:pointer}
+.lk-n{font-family:'DM Mono',monospace;font-size:11px;color:#1a56db;margin-right:8px}
+.qblock{margin-bottom:22px}
+.qblock:last-child{margin-bottom:0}
+.qdivider{height:1px;background:#f0f4ff;margin:20px 0}
+.qtxt{font-size:14px;font-weight:600;color:#111827;margin-bottom:12px;line-height:1.5}
+.qno{font-family:'DM Mono',monospace;font-size:12px;color:#1a56db;margin-right:6px}
+.scenario{background:linear-gradient(135deg,#eff3ff,#e0eaff);border-left:3px solid #3b82f6;border-radius:0 8px 8px 0;padding:11px 14px;margin-bottom:12px;font-size:13px;color:#374151;line-height:1.55;font-style:italic}
+.scenario strong{font-style:normal;display:block;font-size:10px;font-weight:700;color:#1a56db;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.options{display:flex;flex-direction:column;gap:7px}
+.option{display:flex;align-items:flex-start;gap:10px;border:1.5px solid #dde4f5;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all .15s;background:#fff}
+.option:hover{border-color:#3b82f6;background:#eff3ff}
+.option.selected{border-color:#1a56db;background:#eff3ff}
+.option input[type=radio]{accent-color:#1a56db;margin-top:2px;flex-shrink:0}
+.option-key{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:#1a56db;flex-shrink:0;margin-top:1px}
+.option-text{font-size:13px;color:#374151;line-height:1.45}
+.submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,#1a56db,#1e40af);color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;border:none;border-radius:14px;cursor:pointer;box-shadow:0 4px 20px rgba(26,86,219,.35);transition:all .2s;margin-top:24px;display:block}
+.submit-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(26,86,219,.4)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.success{display:none;text-align:center;padding:80px 24px;max-width:480px;margin:0 auto}
+.success-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#10b981,#047857);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:40px;color:#fff}
+.success h2{font-size:24px;font-weight:700;color:#0c1f3f;margin-bottom:12px}
+.success p{color:#6b7280;font-size:14px;line-height:1.7}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}.hero h1{font-size:22px}.card-body{padding:16px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Confidential Assessment</div>
+    <h1>Telecollections Agent<br>Psychometric Assessment</h1>
+    <p>Complete all 5 sections honestly. Estimated time: 45 to 60 minutes.</p>
+    <div class="chips">
+      <span class="chip">Personality</span><span class="chip">Situational Judgment</span>
+      <span class="chip">Numerical Aptitude</span><span class="chip">DRA Knowledge</span><span class="chip">Behavioural</span>
+    </div>
+  </div>
+</div>
+<div class="pbar"><div class="pbar-inner"><div class="ptrack"><div class="pfill" id="pfill"></div></div><span class="ptxt" id="ptxt">0% complete</span></div></div>
+<div id="formArea">
+<div class="wrap">
+  <div class="card">
+    <div class="card-head"><div class="card-num">i</div><div><div class="card-title">Candidate Information</div><div class="card-sub">Please fill all fields accurately</div></div></div>
+    <div class="card-body"><div class="grid2">
+      <div class="field"><label>Full Name *</label><input type="text" id="f_name" placeholder="Your full name"></div>
+      <div class="field"><label>Phone Number *</label><input type="tel" id="f_phone" placeholder="+91 98765 43210"></div>
+      <div class="field"><label>Email Address</label><input type="email" id="f_email" placeholder="you@email.com"></div>
+      <div class="field"><label>Date of Birth</label><input type="date" id="f_dob"></div>
+      <div class="field"><label>Education</label><select id="f_edu"><option value="">Select</option><option>10th Pass</option><option>10+2 (Intermediate)</option><option>Graduate (B.A./B.Com./B.Sc.)</option><option>Post Graduate</option><option>Other</option></select></div>
+      <div class="field"><label>Work Experience</label><select id="f_exp"><option value="">Select</option><option>Fresher</option><option>Less than 1 year</option><option>1-2 years</option><option>2-4 years</option><option>4+ years</option></select></div>
+      <div class="field"><label>DRA Certification</label><select id="f_dra"><option value="">Select</option><option>DRA Certified (IIBF)</option><option>Not certified - willing to certify within 3 months</option><option>Not certified</option></select></div>
+      <div class="field"><label>Languages Spoken</label><input type="text" id="f_lang" placeholder="e.g. Hindi, English, Marathi"></div>
+      <div class="field span2"><label>Previous Employer and Role</label><input type="text" id="f_prev" placeholder="e.g. Concentrix - Collections"></div>
+    </div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-num">1</div><div><div class="card-title">Personality and Attitude</div><div class="card-sub">1 = Strongly Disagree to 5 = Strongly Agree</div></div></div>
+    <div class="card-body"><div class="lk-scroll"><table class="lk"><thead><tr><th>Statement</th><th>1<br><small>Str. Disagree</small></th><th>2</th><th>3<br><small>Neutral</small></th><th>4</th><th>5<br><small>Str. Agree</small></th></tr></thead><tbody id="lkBody"></tbody></table></div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-num">2</div><div><div class="card-title">Situational Judgment</div><div class="card-sub">Choose the best response for each scenario</div></div></div>
+    <div class="card-body" id="sitBody"></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-num">3</div><div><div class="card-title">Numerical Aptitude</div><div class="card-sub">Select the correct answer</div></div></div>
+    <div class="card-body" id="numBody"></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-num">4</div><div><div class="card-title">DRA Knowledge and Compliance</div><div class="card-sub">Based on RBI guidelines and IIBF DRA certification</div></div></div>
+    <div class="card-body" id="draBody"></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-num">5</div><div><div class="card-title">Behavioural Questions</div><div class="card-sub">Answer honestly in 2 to 4 sentences each</div></div></div>
+    <div class="card-body" id="oeBody"></div>
+  </div>
+  <button class="submit-btn" id="submitBtn" onclick="doSubmit()">Submit Assessment</button>
+</div>
+</div>
+<div class="success" id="successArea">
+  <div class="success-icon">&#10003;</div>
+  <h2>Assessment Submitted!</h2>
+  <p>Thank you. Your responses have been recorded and the HR team will review them shortly. We will be in touch with you soon.</p>
+</div>
+<script>
+var GAS="https://script.google.com/macros/s/AKfycbzJQ8su8Fy9roIR_P-Asw-ykKZ6UJBNfHKIq92nbSeH13PPC2KpjNqGKxmzR-B6Dvaz/exec";
+var LK=["I remain calm and composed even when a customer becomes aggressive or rude.","I believe every customer, even a defaulter, deserves to be treated with respect.","I am comfortable having the same type of conversation repeatedly throughout the day.","I can handle rejection without it affecting my motivation for the next call.","I prefer working with clear targets and performance metrics.","I find it easy to adjust my communication style depending on who I am speaking with.","I take ownership of my work even when outcomes are not in my control.","I feel comfortable following a strict script or process without deviation.","I can stay productive even during slow or difficult days.","I am motivated by incentives and performance bonuses.","I am comfortable working in a high-pressure, fast-paced environment.","I believe persistence is more important than perfection in collections work.","I can maintain a professional tone even when I disagree with company policy.","I recover quickly from a bad call and do not carry it into the next one.","I am honest even when it may not be what the customer or supervisor wants to hear."];
+var SIT=[{s:"A borrower becomes extremely abusive on a call, using profane language. You still need to collect payment.",o:["Immediately disconnect and report to supervisor with full documentation.","Raise your voice to match the borrower's energy and assert yourself firmly.","Calmly warn the borrower the call will end if language continues, then disconnect and document it.","Apologise repeatedly and continue to avoid escalation."],c:2},{s:"A borrower says they have lost their job and genuinely cannot pay this month. They sound distressed.",o:["Remind them of legal consequences immediately to create urgency.","Empathise, ask questions to understand their position, and explore restructuring or partial payment options.","Tell them there is nothing you can do and ask them to call back when they have money.","Promise them a waiver on penalties to close the call."],c:1},{s:"You are behind your daily collection target at 4 PM with 20 pending calls.",o:["Call only accounts with the highest outstanding to maximise recovery.","Call all 20 accounts methodically, noting responses and setting follow-up promises.","Skip difficult accounts and focus on easy ones to boost numbers quickly.","Ask supervisor to extend hours without prioritising the pending list."],c:1},{s:"A borrower says they already paid the EMI and provides a UTR number. Your system still shows it as outstanding.",o:["Tell the borrower the payment has not come through and ask them to pay again immediately.","Acknowledge the payment, take the UTR number, inform them you will verify with backend, and assure no negative marking till resolved.","Disconnect and mark it as disputed without taking any details.","Tell the borrower it is their problem and they should contact the bank."],c:1},{s:"Your supervisor asks you to tell a borrower that legal proceedings have already been initiated when they have not been.",o:["Do as instructed since the supervisor is responsible.","Refuse to make the call and escalate in writing to HR or compliance immediately.","Improvise on the call but avoid saying it directly.","Tell the borrower the truth and not follow the supervisor's instruction."],c:1},{s:"A customer says: I know my rights. You people are harassing me. How do you respond?",o:["Apologise and end the call immediately.","Calmly acknowledge their concern, confirm your identity and company name, and explain the call is for EMI reminder within RBI guidelines.","Argue that you are not harassing them and escalate your tone.","Mention that CIBIL will be affected if they do not pay, and repeat this a few times."],c:1},{s:"During a call you realise the borrower is speaking in a language you are not proficient in.",o:["Continue in your language and expect the borrower to adjust.","Apologise, inform them you will arrange a call with a colleague who speaks their language, and ensure a warm handover.","Disconnect the call and mark it as No Response.","Speak slowly and loudly in your language so the borrower understands."],c:1},{s:"A borrower agrees to pay but asks to pay 5 days later than their EMI date. You do not have authority to approve this.",o:["Approve it verbally to close the call and meet your promise count.","Tell the borrower this is absolutely not possible and push for same-day payment.","Explain you need to check with your supervisor, get confirmation, and revert with a definite answer.","Vaguely say we will see and note the promise without escalating."],c:2}];
+var NUM=[{q:"A borrower's EMI is Rs 8,500 per month. They have missed 3 consecutive EMIs. Total overdue (excluding penalties)?",o:["Rs 17,000","Rs 25,500","Rs 34,000","Rs 8,500"],c:1},{q:"A collection agent makes 60 calls per day with a 65% contact rate. How many borrowers does the agent speak with?",o:["35","39","40","45"],c:1},{q:"A borrower owes Rs 1,20,000 principal + Rs 18,000 interest + 2% penal charges on principal. Total amount due?",o:["Rs 1,38,000","Rs 1,40,400","Rs 1,42,400","Rs 1,41,600"],c:1},{q:"Team target is Rs 25 lakhs. By the 20th, Rs 17.5 lakhs collected. What percentage of target is remaining?",o:["30%","70%","25%","37.5%"],c:0},{q:"Which is NOT a valid reason to flag a call for quality review?",o:["Agent used threatening language with the borrower.","Call lasted more than 8 minutes.","Agent disclosed account details to an unauthorised third party.","Agent failed to offer a payment plan to a distressed borrower."],c:1}];
+var DRA=[{q:"Which regulatory body has issued guidelines governing the conduct of Recovery Agents in India?",o:["SEBI","RBI (Reserve Bank of India)","IRDA","Ministry of Finance"],c:1},{q:"As per RBI guidelines, between what hours is a recovery agent permitted to contact a borrower?",o:["6:00 AM to 10:00 PM","7:00 AM to 7:00 PM","8:00 AM to 7:00 PM","9:00 AM to 6:00 PM"],c:1},{q:"Which action by a recovery agent is PROHIBITED under RBI guidelines?",o:["Calling a borrower during permitted hours to remind them of an overdue EMI.","Informing the borrower about consequences of default on their credit score.","Contacting the borrower's relatives or employer to coerce or pressurize repayment.","Offering a settlement or restructuring plan to the borrower."],c:2},{q:"A DRA certified agent must disclose which of the following at the start of every call?",o:["Their personal mobile number and address.","Their name, the name of the lending institution they represent, and the purpose of the call.","The borrower's full outstanding amount and penalty charges immediately.","The borrower's CIBIL score."],c:1},{q:"Under the DRA framework, a recovery agent is NOT allowed to:",o:["Make written communication to the borrower about outstanding dues.","Use language that is abusive, threatening, or causes mental harassment.","Offer a repayment plan to the borrower.","Document details of every call made to the borrower."],c:1},{q:"Which certification body provides the DRA certification examination in India?",o:["AMFI","NCFM (NSE)","IIBF (Indian Institute of Banking and Finance)","NISM"],c:2},{q:"A borrower lodges a complaint with the bank about harassment by a recovery agent. The bank is:",o:["Not responsible since the agent is a third party.","Required to investigate and take corrective action - the bank is responsible for its agents' conduct.","Required to immediately terminate the lending agreement with the borrower.","Allowed to ignore the complaint if the agent denies the allegations."],c:1},{q:"What does the Fair Practices Code for Lenders mean for a DRA?",o:["A suggestion that DRAs may follow at their discretion.","Applies only to the bank's internal staff, not third-party agents.","Mandates ethical, transparent, and non-coercive practices in all recovery interactions.","Restricts DRAs from making more than 3 calls per day to a borrower."],c:2}];
+var OE=["Describe a time you had to deliver a difficult message to someone. How did you handle their reaction?","Have you ever been asked to do something that felt unethical at work? What did you do?","What do you do to mentally reset after a stressful or emotionally draining conversation?","You make 80 calls in a day and only 10 result in a promise to pay. How do you keep yourself motivated?","How would your previous manager or colleague describe your attitude on a bad day?","A borrower owes Rs 45,000 and offers Rs 20,000 today with the rest in 15 days. Your target requires full recovery by month-end (10 days away). What would you say to this borrower?"];
+
+function buildLikert(){var b=document.getElementById('lkBody');for(var i=0;i<LK.length;i++){var tr=document.createElement('tr');var h='<td><span class="lk-n">'+(i+1)+'.</span>'+LK[i]+'</td>';for(var v=1;v<=5;v++)h+='<td><input type="radio" name="L'+i+'" value="'+v+'" onchange="tick()"></td>';tr.innerHTML=h;b.appendChild(tr);}}
+function buildMCQ(id,qs,pfx,isSit){var el=document.getElementById(id);for(var i=0;i<qs.length;i++){var q=qs[i];var d=document.createElement('div');d.className='qblock';var qt=document.createElement('div');qt.className='qtxt';qt.innerHTML='<span class="qno">Q'+(i+1)+'.</span>'+(isSit?'What would you do?':q.q);d.appendChild(qt);if(isSit){var sc=document.createElement('div');sc.className='scenario';sc.innerHTML='<strong>Scenario</strong>'+q.s;d.appendChild(sc);}var opts=document.createElement('div');opts.className='options';for(var j=0;j<q.o.length;j++){var lbl=document.createElement('label');lbl.className='option';lbl.id=pfx+i+'_'+j;var radio=document.createElement('input');radio.type='radio';radio.name=pfx+i;radio.value=j;(function(p,qi,oi,len){radio.onchange=function(){for(var k=0;k<len;k++){var e=document.getElementById(p+qi+'_'+k);if(e)e.classList.remove('selected');}document.getElementById(p+qi+'_'+oi).classList.add('selected');tick();};})(pfx,i,j,q.o.length);var key=document.createElement('span');key.className='option-key';key.textContent=String.fromCharCode(65+j)+'.';var txt=document.createElement('span');txt.className='option-text';txt.textContent=q.o[j];lbl.appendChild(radio);lbl.appendChild(key);lbl.appendChild(txt);opts.appendChild(lbl);}d.appendChild(opts);if(i<qs.length-1){var dv=document.createElement('div');dv.className='qdivider';d.appendChild(dv);}el.appendChild(d);}}
+function buildOE(){var el=document.getElementById('oeBody');for(var i=0;i<OE.length;i++){var d=document.createElement('div');d.className='qblock';var qt=document.createElement('div');qt.className='qtxt';qt.innerHTML='<span class="qno">Q'+(i+1)+'.</span>'+OE[i];d.appendChild(qt);var ta=document.createElement('textarea');ta.id='OE'+i;ta.placeholder='Write your answer here...';ta.rows=3;ta.style.cssText='width:100%;border:1.5px solid #dde4f5;border-radius:10px;padding:10px 13px;font-family:DM Sans,sans-serif;font-size:14px;color:#111827;background:#fff;outline:none;resize:vertical;min-height:90px;';ta.oninput=tick;d.appendChild(ta);if(i<OE.length-1){var dv=document.createElement('div');dv.className='qdivider';d.appendChild(dv);}el.appendChild(d);}}
+function tick(){var done=0,total=0;function cnt(n,l){total+=l;for(var i=0;i<l;i++)if(document.querySelector('input[name="'+n+i+'"]:checked'))done++;}cnt('L',LK.length);cnt('S',SIT.length);cnt('N',NUM.length);cnt('D',DRA.length);total+=OE.length;for(var i=0;i<OE.length;i++){var e=document.getElementById('OE'+i);if(e&&e.value.trim().length>5)done++;}var p=Math.round(done/total*100);document.getElementById('pfill').style.width=p+'%';document.getElementById('ptxt').textContent=p+'% complete';}
+function getR(pfx,len){var arr=[];for(var i=0;i<len;i++){var e=document.querySelector('input[name="'+pfx+i+'"]:checked');arr.push(e?parseInt(e.value):null);}return arr;}
+
+async function doSubmit(){
+  var name=document.getElementById('f_name').value.trim();
+  if(!name){alert('Please enter your full name.');return;}
+  var btn=document.getElementById('submitBtn');
+  btn.disabled=true;btn.textContent='Scoring your assessment...';
+  var info={name:name,phone:document.getElementById('f_phone').value,email:document.getElementById('f_email').value,dob:document.getElementById('f_dob').value,edu:document.getElementById('f_edu').value,exp:document.getElementById('f_exp').value,dra:document.getElementById('f_dra').value,lang:document.getElementById('f_lang').value,prev:document.getElementById('f_prev').value};
+  var ans={likert:getR('L',LK.length),sit:getR('S',SIT.length),num:getR('N',NUM.length),dra:getR('D',DRA.length),oe:[]};
+  for(var i=0;i<OE.length;i++){var e=document.getElementById('OE'+i);ans.oe.push(e?e.value.trim():'');}
+  var nSc=0,dSc=0,sSc=0;
+  for(var i=0;i<NUM.length;i++)if(ans.num[i]===NUM[i].c)nSc++;
+  for(var i=0;i<DRA.length;i++)if(ans.dra[i]===DRA[i].c)dSc++;
+  for(var i=0;i<SIT.length;i++)if(ans.sit[i]===SIT[i].c)sSc++;
+  var lv=ans.likert.filter(function(v){return v!==null;});
+  var lAvg=lv.length?(lv.reduce(function(a,b){return a+b;},0)/lv.length):3;
+  btn.textContent='Claude AI is analysing responses...';
+  var ai={total_score:0,verdict:'ADVANCE_WITH_RESERVATIONS',reasoning:'Based on objective scores.',personality_summary:'AI unavailable.',situational_analysis:'AI unavailable.',open_ended_analysis:'AI unavailable.',flags:'None'};
+  try{
+    var prompt='You are an expert HR assessor for a telecollections role in India.\nCANDIDATE: '+info.name+' | Edu: '+info.edu+' | Exp: '+info.exp+' | DRA: '+info.dra+'\nSCORES: Numerical '+nSc+'/'+NUM.length+' | DRA '+dSc+'/'+DRA.length+' | Situational '+sSc+'/'+SIT.length+' | Likert avg '+lAvg.toFixed(1)+'/5\nLIKERT:\n'+LK.map(function(s,i){return (i+1)+'. "'+s+'" -> '+(ans.likert[i]||'?');}).join('\n')+'\nSITUATIONAL:\n'+SIT.map(function(q,i){return 'Q'+(i+1)+': '+(ans.sit[i]===q.c?'CORRECT':'WRONG')+' chose: "'+(ans.sit[i]!==null?q.o[ans.sit[i]]:'?')+'"';}).join('\n')+'\nOPEN-ENDED:\n'+OE.map(function(q,i){return 'Q'+(i+1)+': '+q+'\nAnswer: "'+(ans.oe[i]||'?')+'"';}).join('\n\n')+'\nRespond ONLY with valid JSON no markdown:\n{"personality_summary":"2-3 sentences","situational_analysis":"2-3 sentences","open_ended_analysis":"2-3 sentences","flags":"red flags or None","total_score":0,"verdict":"ADVANCE|ADVANCE_WITH_RESERVATIONS|DO_NOT_ADVANCE","reasoning":"1 sentence"}';
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,messages:[{role:'user',content:prompt}]})});
+    var data=await res.json();
+    var txt='';for(var i=0;i<data.content.length;i++){if(data.content[i].type==='text'){txt=data.content[i].text;break;}}
+    var parsed=JSON.parse(txt.replace(/```json|```/g,'').trim());
+    ai=Object.assign(ai,parsed);
+  }catch(e){
+    var tot=Math.round((nSc/5)*25+(dSc/8)*30+(sSc/8)*25+(lAvg/5)*20);
+    ai.total_score=tot;ai.verdict=tot>=70?'ADVANCE':tot>=50?'ADVANCE_WITH_RESERVATIONS':'DO_NOT_ADVANCE';
+  }
+  btn.textContent='Saving to Google Sheets...';
+  var rec={id:Date.now()+'_'+Math.random().toString(36).substr(2,6),submitted_at:new Date().toISOString(),candidate_name:info.name,phone:info.phone,email:info.email,dob:info.dob,education:info.edu,experience:info.exp,dra_status:info.dra,languages:info.lang,prev_employer:info.prev,likert_scores:ans.likert,situational_answers:ans.sit,numerical_answers:ans.num,dra_answers:ans.dra,open_ended_answers:ans.oe,ai_mcq_score:nSc,ai_dra_score:dSc,ai_situational_score:sSc,likert_avg:parseFloat(lAvg.toFixed(1)),ai_total_score:ai.total_score,ai_verdict:ai.verdict,ai_reasoning:ai.reasoning,ai_personality_summary:ai.personality_summary,ai_situational_analysis:ai.situational_analysis,ai_open_ended_analysis:ai.open_ended_analysis,ai_flags:ai.flags};
+
+  // METHOD 1: fetch with no-cors (works when Apps Script allows all origins)
+  try{
+    fetch(GAS,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'append',record:rec})});
+  }catch(e){}
+
+  // METHOD 2: image GET trick as backup (completely bypasses CORS)
+  try{
+    var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(rec))));
+    var img=new Image();
+    img.src=GAS+'?action=append&data='+encodeURIComponent(encoded)+'&t='+Date.now();
+  }catch(e){}
+
+  document.getElementById('formArea').style.display='none';
+  document.getElementById('successArea').style.display='block';
+  document.querySelector('.pbar').style.display='none';
+}
+
+buildLikert();
+buildMCQ('sitBody',SIT,'S',true);
+buildMCQ('numBody',NUM,'N',false);
+buildMCQ('draBody',DRA,'D',false);
+buildOE();
+tick();
+</script>
+</body>
+</html>
